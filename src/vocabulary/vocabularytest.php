@@ -49,7 +49,7 @@ try {
     }
     //exit when finish
     if ($e < $vocabularyID) {
-        echo "<p><center>Ergebnis: ". $_SESSION["richtig"]."/". $_SESSION["durchgang"]."</center></p>";
+        echo "<p><center>Ergebnis: ". $_SESSION["correct"]."/". $_SESSION["round"]."</center></p>";
     }
     
     elseif ($_SESSION["vocabularyID"] == "") {

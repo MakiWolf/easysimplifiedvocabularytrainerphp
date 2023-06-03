@@ -13,7 +13,7 @@ try {
   
     echo"<center>";
     
-    if (empty(!$VokabelID) && empty(!$deutsch)) {
+    if (empty(!$VokabelID) && empty(!$language1)) {
         $statement = $conn->prepare("INSERT INTO vocabulary (vocabularyid, language1, language2) VALUES (?, ?, ?)");
         $statement->execute(array($VokabelID, $language1, $language2));
         echo "New vocabulary created successfully";

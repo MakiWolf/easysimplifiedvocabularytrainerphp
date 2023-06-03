@@ -7,8 +7,8 @@ $vocabularyID = $_SESSION["vocabularyID"];
 $language1 = $_SESSION["language1"];
 $language2 = $_SESSION["language2"];
 $mistake = $_SESSION["mistake"];
-$richtig = $_SESSION["richtig"];
-$durchgang = $_SESSION["durchgang"];
+$correct = $_SESSION["correct"];
+$round = $_SESSION["round"];
 $userid = $_SESSION["userid"];
 $e = $_SESSION["e"];
 $l = $_SESSION["l"];
@@ -36,8 +36,8 @@ if ($l == "l1") {
         
         if ($uebersetzung == $language2) {
             echo "Richtig! $uebersetzung = $language2";
-            $richtig = $richtig + 1;
-            $durchgang = $durchgang + 1;
+            $correct = $correct + 1;
+            $round = $round + 1;
             if ($mistake > 0) {
                 $mistake = $mistake - 1;
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
@@ -46,8 +46,8 @@ if ($l == "l1") {
             }
         } else {
             echo "$uebersetzung = Richtig! Schoen, wenn mann die Gross und Kleinschreibung beachten wuerde! $language2 = $language1 ";
-            $richtig = $richtig + 1;
-            $durchgang = $durchgang + 1;
+            $correct = $correct + 1;
+            $round = $round + 1;
            
             if ($mistake > 0) {
                 $mistake = $mistake - 1;
@@ -56,8 +56,8 @@ if ($l == "l1") {
         }
     } else {
         echo "$uebersetzung = Falsch! Richtig waere $language2 = $language1";
-        $richtig = $richtig + 0;
-        $durchgang = $durchgang + 1;
+        $correct = $correct + 0;
+        $round = $round + 1;
         $mistake = $mistake + 4;
         $z = update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
         
@@ -67,16 +67,16 @@ if ($l == "l1") {
     if (strtolower($uebersetzung) == strtolower($language1)) {
         if ($uebersetzung == $language1) {
             echo "Richtig! $uebersetzung = $language1";
-            $richtig = $richtig + 1;
-            $durchgang = $durchgang + 1;
+            $correct = $correct + 1;
+            $round = $round + 1;
             if ($mistake > 0) {
                 $mistake = $mistake - 1;
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             }
         } else {
             echo "$uebersetzung = Richtig! Schoen, wenn mann die Gross und Kleinschreibung beachten wuerde! $language2 = $language1 ";
-            $richtig = $richtig + 1;
-            $durchgang = $durchgang + 1;
+            $correct = $correct + 1;
+            $round = $round + 1;
            
             if ($mistake > 0) {
                 $mistake = $mistake - 1;
@@ -85,14 +85,14 @@ if ($l == "l1") {
         }
     } else {
         echo "$uebersetzung = Falsch! Richtig waere: $language2 = $language1";
-        $richtig = $richtig + 0;
-        $durchgang = $durchgang + 1;
+        $correct = $correct + 0;
+        $round = $round + 1;
         $mistake = $mistake + 4;
         update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
     }
 }
 $vocabularyID = $vocabularyID + 1;
-$_SESSION["richtig"] = $richtig;
-$_SESSION["durchgang"] = $durchgang;
+$_SESSION["correct"] = $correct;
+$_SESSION["round"] = $round;
 echo"<p><a href = 'vocabularytest.php?vocabularyID=".$vocabularyID."&e=".$e."&l=".$l."&f=".$f."' tabindex='1'>weiter</a></p>";
 echo "</center>";

@@ -14,8 +14,8 @@ try {
         echo "Error: " . $e->getMessage();
     }
 $pdo = null;
-$_SESSION["richtig"] = 0;
-$_SESSION["durchgang"] = 0;
+$_SESSION["correct"] = 0;
+$_SESSION["round"] = 0;
 echo "<center><a href ='vocabulary/newvocabulary.php'>new</a></center>";
 echo "<center><a href ='vocabulary/studyprogress.php?s=1&e=100'>study progress</a></center>";
 echo "<center><a href ='vocabulary/vocabularylist.php?s=1&e=10'>vocabularylist</a></center>";
