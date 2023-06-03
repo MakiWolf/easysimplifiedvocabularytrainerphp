@@ -22,6 +22,11 @@ function update($mistake, $vocabularyID, $userid, $servername, $username, $passw
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $z = $stmt->rowCount();
+        //echo "update $z";
+        if($z==0 && $mistake > 0){
+        $statement = $conn->prepare("INSERT INTO mistake (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
+        $statement->execute(array($vocabularyID, $userid, $mistake));
+        }
     } catch (PDOException $e) {
         echo $sql . "<br>" . $e->getMessage();
         $z = 0;
@@ -35,7 +40,7 @@ if ($l == "l1") {
     if (strtolower($uebersetzung) == strtolower($language2)) {
         
         if ($uebersetzung == $language2) {
-            echo "Richtig! $uebersetzung = $language2";
+            echo "correct! $uebersetzung = $language2";
             $correct = $correct + 1;
             $round = $round + 1;
             if ($mistake > 0) {
@@ -45,7 +50,7 @@ if ($l == "l1") {
                
             }
         } else {
-            echo "$uebersetzung = Richtig! Schoen, wenn mann die Gross und Kleinschreibung beachten wuerde! $language2 = $language1 ";
+            echo "$uebersetzung = upper und lowercase mistake! correct is: $language2 = $language1 ";
             $correct = $correct + 1;
             $round = $round + 1;
            
@@ -55,18 +60,18 @@ if ($l == "l1") {
             }
         }
     } else {
-        echo "$uebersetzung = Falsch! Richtig waere $language2 = $language1";
+        echo "$uebersetzung = is not correct! Right is: $language2 = $language1";
         $correct = $correct + 0;
         $round = $round + 1;
         $mistake = $mistake + 4;
-        $z = update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
+        update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
         
     }
 } else {
     //language2 language1
     if (strtolower($uebersetzung) == strtolower($language1)) {
         if ($uebersetzung == $language1) {
-            echo "Richtig! $uebersetzung = $language1";
+            echo "correct! $uebersetzung = $language1";
             $correct = $correct + 1;
             $round = $round + 1;
             if ($mistake > 0) {
@@ -74,7 +79,7 @@ if ($l == "l1") {
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             }
         } else {
-            echo "$uebersetzung = Richtig! Schoen, wenn mann die Gross und Kleinschreibung beachten wuerde! $language2 = $language1 ";
+            echo "$uebersetzung =  upper und lowercase mistake! correct is: $language2 = $language1 ";
             $correct = $correct + 1;
             $round = $round + 1;
            
@@ -84,7 +89,7 @@ if ($l == "l1") {
             }
         }
     } else {
-        echo "$uebersetzung = Falsch! Richtig waere: $language2 = $language1";
+        echo "$uebersetzung = is not correct! Right is: $language2 = $language1";
         $correct = $correct + 0;
         $round = $round + 1;
         $mistake = $mistake + 4;
@@ -94,5 +99,5 @@ if ($l == "l1") {
 $vocabularyID = $vocabularyID + 1;
 $_SESSION["correct"] = $correct;
 $_SESSION["round"] = $round;
-echo"<p><a href = 'vocabularytest.php?vocabularyID=".$vocabularyID."&e=".$e."&l=".$l."&f=".$f."' tabindex='1'>weiter</a></p>";
+echo"<p><a href = 'vocabularytest.php?vocabularyID=".$vocabularyID."&e=".$e."&l=".$l."&f=".$f."' tabindex='1'>next page</a></p>";
 echo "</center>";

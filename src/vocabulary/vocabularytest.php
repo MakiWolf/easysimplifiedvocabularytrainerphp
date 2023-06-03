@@ -12,24 +12,12 @@ $_SESSION["f"] = $_GET['f'];
 $_SESSION["vocabularyID"] = "";
 $_SESSION["language1"] = "";
 $_SESSION["language2"] = "";
-$Fehler = null;
 $_SESSION["mistake"] = 0;
 $userid = $_SESSION["userid"];
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //if no errors are
-    $sql = "SELECT * FROM mistake WHERE vocabularyID = '".$vocabularyID."' AND userid = '".$userid."'";
-    foreach ($pdo->query($sql) as $row) {
-        $Fehler = $row['mistake'];
-        
-    }
-   
-    if ($Fehler == null) {
-        $statement = $pdo->prepare("INSERT INTO mistake (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
-        $statement->execute(array($vocabularyID, $userid, '0'));
-        
-    }
+
     if ($f == "f1") {
         $sql = "SELECT * FROM vocabulary INNER JOIN mistake ON vocabulary.vocabularyID = mistake.vocabularyID WHERE vocabulary.vocabularyID = '".$vocabularyID."' AND mistake.userid = '".$userid."' AND mistake > 0";
         foreach ($pdo->query($sql) as $row) {
@@ -39,17 +27,23 @@ try {
             $_SESSION["mistake"] = $row['mistake'];
         }
     } else {
-        $sql = "SELECT * FROM vocabulary INNER JOIN mistake ON vocabulary.vocabularyID = mistake.vocabularyID WHERE vocabulary.vocabularyID = '".$vocabularyID."' AND mistake.userid = '".$userid."' ";
+        $sql = "SELECT * FROM vocabulary WHERE vocabularyID = '".$vocabularyID."'";
         foreach ($pdo->query($sql) as $row) {
             $_SESSION["vocabularyID"] = $row['vocabularyID'];
             $_SESSION["language1"] = $row['language1'];
             $_SESSION["language2"] = $row['language2'];
-            $_SESSION["mistake"] = $row['mistake'];
+            $_SESSION["mistake"] = null;
         }
+        $sql2 = "SELECT * FROM mistake WHERE vocabularyID = '".$vocabularyID."' AND userid = '".$userid."'";
+        foreach ($pdo->query($sql2) as $row) {
+            $_SESSION["mistake"] = $row['mistake'];
+            
+        }
+
     }
     //exit when finish
     if ($e < $vocabularyID) {
-        echo "<p><center>Ergebnis: ". $_SESSION["correct"]."/". $_SESSION["round"]."</center></p>";
+        echo "<p><center>result: ". $_SESSION["correct"]."/". $_SESSION["round"]."</center></p>";
     }
     
     elseif ($_SESSION["vocabularyID"] == "") {
