@@ -11,3 +11,8 @@ Currently it is tested on Fedora 38 but it should work on other Linux distributi
 If you want to try it copy the content of the src directory on the webspace
 
 If the files are not located in project directory on server, you have to change the $folder variable on line 42 in the header.php file
+
+## Roadmap
+support multiple languages in user interface
+clean up code and move code to classes
+support multiple user accounts
