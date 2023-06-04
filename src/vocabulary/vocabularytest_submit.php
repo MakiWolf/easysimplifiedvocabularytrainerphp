@@ -50,7 +50,7 @@ if ($l == "l1") {
                
             }
         } else {
-            echo "$uebersetzung = upper und lowercase mistake! correct is: $language2 = $language1 ";
+            echo "$uebersetzung = upper und lowercase mistake! correct is:". htmlspecialchars($language2)."=".htmlspecialchars($language1);
             $correct = $correct + 1;
             $round = $round + 1;
            
@@ -60,7 +60,7 @@ if ($l == "l1") {
             }
         }
     } else {
-        echo "$uebersetzung = is not correct! Right is: $language2 = $language1";
+        echo "$uebersetzung = is not correct! Right is:" . htmlspecialchars($language2)."=".htmlspecialchars($language1);
         $correct = $correct + 0;
         $round = $round + 1;
         $mistake = $mistake + 4;
@@ -79,7 +79,7 @@ if ($l == "l1") {
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             }
         } else {
-            echo "$uebersetzung =  upper und lowercase mistake! correct is: $language2 = $language1 ";
+            echo "$uebersetzung =  upper und lowercase mistake! correct is:" . htmlspecialchars($language2)."=".htmlspecialchars($language1);
             $correct = $correct + 1;
             $round = $round + 1;
            
@@ -89,7 +89,7 @@ if ($l == "l1") {
             }
         }
     } else {
-        echo "$uebersetzung = is not correct! Right is: $language2 = $language1";
+        echo "$uebersetzung = is not correct! Right is:" . htmlspecialchars($language2)."=".htmlspecialchars($language1);
         $correct = $correct + 0;
         $round = $round + 1;
         $mistake = $mistake + 4;

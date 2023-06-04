@@ -11,7 +11,7 @@ try {
     	$statement->execute(array('s' => $s, 'e' => $e));
         echo "<center><table border><tr><td>ID</td><td>language1</td><td>language2</td><td></td></tr>";
    	 while ($row = $statement->fetch()) {
-       		 echo "<tr><td>".$row['ID']."</td><td>".$row['language1']."</td><td>".$row['language2']."</td><td><a href ='editvocabulary.php?id=".$row['ID']."'>edit</a></td></tr>";
+       		 echo "<tr><td>".$row['ID']."</td><td>".htmlspecialchars($row['language1'])."</td><td>".htmlspecialchars($row['language2'])."</td><td><a href ='editvocabulary.php?id=".$row['ID']."'>edit</a></td></tr>";
    	 }
       echo "</table></center>";
     }

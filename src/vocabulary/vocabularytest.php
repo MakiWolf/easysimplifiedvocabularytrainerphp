@@ -51,9 +51,9 @@ try {
         header("Location: vocabularytest.php?vocabularyID=".$vocabularyID."&e=".$e."&l=".$l."&f=".$f."");
     } else {
         if ($l == "l1") {
-            echo "<p><center>vocabulary language1: ". $_SESSION["language1"]."</p>";
+            echo "<p><center>vocabulary language1: ". htmlspecialchars($_SESSION["language1"])."</p>";
         } else {
-            echo "<p><center>vocabulary language2: ". $_SESSION["language2"]."</p>";
+            echo "<p><center>vocabulary language2: ". htmlspecialchars($_SESSION["language2"])."</p>";
         }
         echo "<form action='vocabularytest_submit.php' method='post'>";
         echo "translation: <input type='text' name='name' autofocus>";
