@@ -5,6 +5,6 @@ include '../session.php';
 include '../function.php';
 echo "<center>";
 $id = $_GET["id"];
-viewtables("", "", $servername,$dbname,$charset, $username, $password, "editvocabulary", $id);
+editvocabulary($connstring, $id);
 echo "</center>";
 include '../footer.php';
