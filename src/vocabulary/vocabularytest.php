@@ -19,7 +19,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($f == "f1") {
-        $sql = "SELECT * FROM vocabulary INNER JOIN mistake ON vocabulary.vocabularyID = mistake.vocabularyID WHERE vocabulary.vocabularyID = '".$vocabularyID."' AND mistake.userid = '".$userid."' AND mistake > 0";
+        $sql = "SELECT * FROM vocabulary INNER JOIN mistake ON vocabulary.vocabularyID = mistake.vocabularyID WHERE vocabulary.vocabularyID = '" . $vocabularyID . "' AND mistake.userid = '" . $userid . "' AND mistake > 0";
         foreach ($pdo->query($sql) as $row) {
             $_SESSION["vocabularyID"] = $row['vocabularyID'];
             $_SESSION["language1"] = $row['language1'];
@@ -27,33 +27,29 @@ try {
             $_SESSION["mistake"] = $row['mistake'];
         }
     } else {
-        $sql = "SELECT * FROM vocabulary WHERE vocabularyID = '".$vocabularyID."'";
+        $sql = "SELECT * FROM vocabulary WHERE vocabularyID = '" . $vocabularyID . "'";
         foreach ($pdo->query($sql) as $row) {
             $_SESSION["vocabularyID"] = $row['vocabularyID'];
             $_SESSION["language1"] = $row['language1'];
             $_SESSION["language2"] = $row['language2'];
             $_SESSION["mistake"] = null;
         }
-        $sql2 = "SELECT * FROM mistake WHERE vocabularyID = '".$vocabularyID."' AND userid = '".$userid."'";
+        $sql2 = "SELECT * FROM mistake WHERE vocabularyID = '" . $vocabularyID . "' AND userid = '" . $userid . "'";
         foreach ($pdo->query($sql2) as $row) {
             $_SESSION["mistake"] = $row['mistake'];
-            
         }
-
     }
     //exit when finish
     if ($e < $vocabularyID) {
-        echo "<p><center>result: ". $_SESSION["correct"]."/". $_SESSION["round"]."</center></p>";
-    }
-    
-    elseif ($_SESSION["vocabularyID"] == "") {
+        echo "<p><center>result: " . $_SESSION["correct"] . "/" . $_SESSION["round"] . "</center></p>";
+    } elseif ($_SESSION["vocabularyID"] == "") {
         $vocabularyID = $vocabularyID + 1;
-        header("Location: vocabularytest.php?vocabularyID=".$vocabularyID."&e=".$e."&l=".$l."&f=".$f."");
+        header("Location: vocabularytest.php?vocabularyID=" . $vocabularyID . "&e=" . $e . "&l=" . $l . "&f=" . $f . "");
     } else {
         if ($l == "l1") {
-            echo "<p><center>vocabulary language1: ". htmlspecialchars($_SESSION["language1"])."</p>";
+            echo "<p><center>vocabulary language1: " . htmlspecialchars($_SESSION["language1"]) . "</p>";
         } else {
-            echo "<p><center>vocabulary language2: ". htmlspecialchars($_SESSION["language2"])."</p>";
+            echo "<p><center>vocabulary language2: " . htmlspecialchars($_SESSION["language2"]) . "</p>";
         }
         echo "<form action='vocabularytest_submit.php' method='post'>";
         echo "translation: <input type='text' name='name' autofocus>";

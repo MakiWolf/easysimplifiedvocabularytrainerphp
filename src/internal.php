@@ -6,13 +6,13 @@ include 'session.php';
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT userid FROM user WHERE username = '".$username."'";
+    $sql = "SELECT userid FROM user WHERE username = '" . $username . "'";
     foreach ($pdo->query($sql) as $row) {
         $_SESSION["userid"] = $row['userid'];
     }
 } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
+    echo "Error: " . $e->getMessage();
+}
 $pdo = null;
 $_SESSION["correct"] = 0;
 $_SESSION["round"] = 0;

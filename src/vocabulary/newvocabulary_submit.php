@@ -6,13 +6,13 @@ include '../session.php';
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
+
     $VokabelID = $_POST["VokabelID"];
     $language1 = $_POST["language1"];
     $language2 = $_POST["language2"];
-  
-    echo"<center>";
-    
+
+    echo "<center>";
+
     if (empty(!$VokabelID) && empty(!$language1)) {
         $statement = $conn->prepare("INSERT INTO vocabulary (vocabularyid, language1, language2) VALUES (?, ?, ?)");
         $statement->execute(array($VokabelID, $language1, $language2));
@@ -24,5 +24,5 @@ try {
     echo $sql . "<br>" . $e->getMessage();
 }
 $conn = null;
-echo"</center>";
+echo "</center>";
 include '../footer.php';

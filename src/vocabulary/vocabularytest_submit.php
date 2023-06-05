@@ -18,14 +18,14 @@ function update($mistake, $vocabularyID, $userid, $servername, $username, $passw
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "UPDATE mistake SET mistake=".$mistake." WHERE vocabularyID=".$vocabularyID." AND userid=".$userid."";
+        $sql = "UPDATE mistake SET mistake=" . $mistake . " WHERE vocabularyID=" . $vocabularyID . " AND userid=" . $userid . "";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $z = $stmt->rowCount();
         //echo "update $z";
-        if($z==0 && $mistake > 0){
-        $statement = $conn->prepare("INSERT INTO mistake (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
-        $statement->execute(array($vocabularyID, $userid, $mistake));
+        if ($z == 0 && $mistake > 0) {
+            $statement = $conn->prepare("INSERT INTO mistake (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
+            $statement->execute(array($vocabularyID, $userid, $mistake));
         }
     } catch (PDOException $e) {
         echo $sql . "<br>" . $e->getMessage();
@@ -38,7 +38,7 @@ echo "<center>";
 if ($l == "l1") {
     //language1 language2
     if (strtolower($uebersetzung) == strtolower($language2)) {
-        
+
         if ($uebersetzung == $language2) {
             echo "correct! $uebersetzung = $language2";
             $correct = $correct + 1;
@@ -47,25 +47,23 @@ if ($l == "l1") {
                 $mistake = $mistake - 1;
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             } else {
-               
             }
         } else {
-            echo "$uebersetzung = upper und lowercase mistake! correct is:". htmlspecialchars($language2)."=".htmlspecialchars($language1);
+            echo "$uebersetzung = upper und lowercase mistake! correct is:" . htmlspecialchars($language2) . "=" . htmlspecialchars($language1);
             $correct = $correct + 1;
             $round = $round + 1;
-           
+
             if ($mistake > 0) {
                 $mistake = $mistake - 1;
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             }
         }
     } else {
-        echo "$uebersetzung = is not correct! Right is:" . htmlspecialchars($language2)."=".htmlspecialchars($language1);
+        echo "$uebersetzung = is not correct! Right is:" . htmlspecialchars($language2) . "=" . htmlspecialchars($language1);
         $correct = $correct + 0;
         $round = $round + 1;
         $mistake = $mistake + 4;
         update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
-        
     }
 } else {
     //language2 language1
@@ -79,17 +77,17 @@ if ($l == "l1") {
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             }
         } else {
-            echo "$uebersetzung =  upper und lowercase mistake! correct is:" . htmlspecialchars($language2)."=".htmlspecialchars($language1);
+            echo "$uebersetzung =  upper und lowercase mistake! correct is:" . htmlspecialchars($language2) . "=" . htmlspecialchars($language1);
             $correct = $correct + 1;
             $round = $round + 1;
-           
+
             if ($mistake > 0) {
                 $mistake = $mistake - 1;
                 update($mistake, $vocabularyID, $userid, $servername, $username, $password, $dbname);
             }
         }
     } else {
-        echo "$uebersetzung = is not correct! Right is:" . htmlspecialchars($language2)."=".htmlspecialchars($language1);
+        echo "$uebersetzung = is not correct! Right is:" . htmlspecialchars($language2) . "=" . htmlspecialchars($language1);
         $correct = $correct + 0;
         $round = $round + 1;
         $mistake = $mistake + 4;
@@ -99,5 +97,5 @@ if ($l == "l1") {
 $vocabularyID = $vocabularyID + 1;
 $_SESSION["correct"] = $correct;
 $_SESSION["round"] = $round;
-echo"<p><a href = 'vocabularytest.php?vocabularyID=".$vocabularyID."&e=".$e."&l=".$l."&f=".$f."' tabindex='1'>next page</a></p>";
+echo "<p><a href = 'vocabularytest.php?vocabularyID=" . $vocabularyID . "&e=" . $e . "&l=" . $l . "&f=" . $f . "' tabindex='1'>next page</a></p>";
 echo "</center>";
