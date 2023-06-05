@@ -19,7 +19,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($f == "f1") {
-        $sql = "SELECT * FROM vocabulary INNER JOIN mistake ON vocabulary.vocabularyID = mistake.vocabularyID WHERE vocabulary.vocabularyID = '" . $vocabularyID . "' AND mistake.userid = '" . $userid . "' AND mistake > 0";
+        $sql = "SELECT * FROM vocabulary INNER JOIN mistake ON vocabulary.ID = mistake.vocabularyID WHERE vocabulary.ID = '" . $vocabularyID . "' AND mistake.userid = '" . $userid . "' AND mistake > 0";
         foreach ($pdo->query($sql) as $row) {
             $_SESSION["vocabularyID"] = $row['vocabularyID'];
             $_SESSION["language1"] = $row['language1'];
@@ -27,9 +27,9 @@ try {
             $_SESSION["mistake"] = $row['mistake'];
         }
     } else {
-        $sql = "SELECT * FROM vocabulary WHERE vocabularyID = '" . $vocabularyID . "'";
+        $sql = "SELECT * FROM vocabulary WHERE ID = '" . $vocabularyID . "'";
         foreach ($pdo->query($sql) as $row) {
-            $_SESSION["vocabularyID"] = $row['vocabularyID'];
+            $_SESSION["vocabularyID"] = $row['ID'];
             $_SESSION["language1"] = $row['language1'];
             $_SESSION["language2"] = $row['language2'];
             $_SESSION["mistake"] = null;

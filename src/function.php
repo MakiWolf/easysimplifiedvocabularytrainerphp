@@ -50,3 +50,20 @@ function editvocabulary($connstring, $id)
 	}
 	$pdo = null;
 }
+
+
+function userid($connstring, $username)
+{
+
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "SELECT user.ID FROM user WHERE username = '" . $username . "'";
+		foreach ($pdo->query($sql) as $row) {
+			$_SESSION["userid"] = $row['ID'];
+		}
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+	}
+	$pdo = null;
+}
