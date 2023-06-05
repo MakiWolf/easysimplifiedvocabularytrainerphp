@@ -16,3 +16,11 @@ If the files are not located in project directory on server, you have to change 
 support multiple languages in user interface<br>
 clean up code and move code to classes<br>
 support multiple user accounts<br>
+
+## Table structure - might be changed in future!
+<b>table user</b>
+<table><tr><td>ID</td><td>username</td></tr></table>
+<b>table vocabulary</b>
+<table><tr><td>ID</td><td>language1</td><td>language2</td></tr></table>
+<b>table mistake</b>
+<table><tr><td>ID</td><td>vocabularyid</td><td>userid</td><td>mistake</td></tr></table>
