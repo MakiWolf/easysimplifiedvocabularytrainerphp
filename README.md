@@ -18,9 +18,9 @@ clean up code and move code to classes<br>
 support multiple user accounts<br>
 
 ## Table structure - might be changed in future!
-<b>table user[userid]</b>
+<b>table user</b>
 <table><tr><td>userID</td><td>username</td></tr></table>
 <b>table vocabulary</b>
 <table><tr><td>vocabularyID</td><td>language1</td><td>language2</td></tr></table>
-<b>table mistake</b>
+<b>table mistake[userid]</b>
 <table><tr><td>vocabularyid</td><td>userid</td><td>mistake</td></tr></table>
