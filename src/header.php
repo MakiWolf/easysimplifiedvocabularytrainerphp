@@ -52,7 +52,7 @@
     $CurURL = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $TagsURL;
 
     if (!(strpos($CurURL, "/index"))) {
-        echo "<a href='" . $folder . "/internal.php' class='logo'>vocabularytrainer</a>";
+        echo "<a href='" . $folder . "/internal.php' class='logo'>easysimplified - vocabularytrainer</a>";
     }
 
     echo "<div class='header-right'>";

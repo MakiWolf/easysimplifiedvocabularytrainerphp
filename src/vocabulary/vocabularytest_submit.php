@@ -18,13 +18,13 @@ function update($mistake, $vocabularyID, $userid, $servername, $username, $passw
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "UPDATE mistake SET mistake=" . $mistake . " WHERE vocabularyID=" . $vocabularyID . " AND userid=" . $userid . "";
+        $sql = "UPDATE mistake" . $_SESSION["userid"] . " SET mistake=" . $mistake . " WHERE vocabularyID=" . $vocabularyID . " AND userid=" . $userid . "";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $z = $stmt->rowCount();
         //echo "update $z";
         if ($z == 0 && $mistake > 0) {
-            $statement = $conn->prepare("INSERT INTO mistake (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
+            $statement = $conn->prepare("INSERT INTO mistake" . $_SESSION["userid"] . " (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
             $statement->execute(array($vocabularyID, $userid, $mistake));
         }
     } catch (PDOException $e) {
