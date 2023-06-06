@@ -2,8 +2,6 @@
 $servername = "localhost";
 $username = $_SESSION["usern"];
 $password = $_SESSION["passwd"];
-$dbname = "Dbvocabulary";
-$charset = "charset=utf8";
 $connstring = "mysql:host=localhost;dbname=Dbvocabulary;charset=utf8";
 
 try {

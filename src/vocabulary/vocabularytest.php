@@ -15,7 +15,7 @@ $_SESSION["language2"] = "";
 $_SESSION["mistake"] = 0;
 $userid = $_SESSION["userid"];
 try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($f == "f1") {
