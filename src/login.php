@@ -8,7 +8,5 @@ session_start();
 $_SESSION["usern"] = $username;
 $_SESSION["passwd"] = $password;
 
-$servername = "localhost";
-$dbname = "DbVokabel";
 header("Location: internal.php");
 include 'footer.php';
