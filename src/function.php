@@ -55,8 +55,10 @@ function userid($connstring, $username)
 	try {
 		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql = "SELECT user.userID FROM user WHERE username = '" . $username . "'";
-		foreach ($pdo->query($sql) as $row) {
+
+		$statement = $pdo->prepare("SELECT user.userID FROM user WHERE username = '" . $username . "'");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
 			$_SESSION["userid"] = $row['userID'];
 		}
 	} catch (PDOException $e) {
@@ -100,7 +102,8 @@ function newvocabulary($connstring, $language1, $language2)
 	$pdo = null;
 }
 
-function studyprogress($connstring, $s, $e){
+function studyprogress($connstring, $s, $e)
+{
 
 	try {
 		echo "<center><table border><tr><td>VokabelID</td><td>language1</td><td>language2</td><td>mistake</td></tr>";
@@ -114,27 +117,96 @@ function studyprogress($connstring, $s, $e){
 		echo "Error: " . $e->getMessage();
 	}
 	$pdo = null;
-
 }
 
 function update($connstring, $mistake, $vocabularyID, $userid)
 {
-    try {
-        $pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "UPDATE mistake" . $_SESSION["userid"] . " SET mistake=" . $mistake . " WHERE vocabularyID=" . $vocabularyID . " AND userid=" . $userid . "";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $z = $stmt->rowCount();
-        //echo "update $z";
-        if ($z == 0 && $mistake > 0) {
-            $statement = $pdo->prepare("INSERT INTO mistake" . $_SESSION["userid"] . " (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
-            $statement->execute(array($vocabularyID, $userid, $mistake));
-        }
-    } catch (PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-        $z = 0;
-    }
-    $conn = null;
-    return $z;
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "UPDATE mistake" . $_SESSION["userid"] . " SET mistake=" . $mistake . " WHERE vocabularyID=" . $vocabularyID . " AND userid=" . $userid . "";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		$z = $stmt->rowCount();
+		//echo "update $z";
+		if ($z == 0 && $mistake > 0) {
+			$statement = $pdo->prepare("INSERT INTO mistake" . $_SESSION["userid"] . " (vocabularyID, userid, mistake) VALUES (?, ?, ?)");
+			$statement->execute(array($vocabularyID, $userid, $mistake));
+		}
+	} catch (PDOException $e) {
+		echo $sql . "<br>" . $e->getMessage();
+		$z = 0;
+	}
+	$pdo = null;
+	return $z;
+}
+
+function getvocabulary($connstring, $vocabularyID)
+{
+
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		$statement = $pdo->prepare("SELECT * FROM vocabulary WHERE vocabularyID = '" . $vocabularyID . "'");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
+			$_SESSION["vocabularyID"] = $row['vocabularyID'];
+			$_SESSION["language1"] = $row['language1'];
+			$_SESSION["language2"] = $row['language2'];
+			$_SESSION["mistake"] = null;
+			
+		}
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+		
+		
+	}
+	$pdo = null;
+	
+}
+
+function getvocabularyf1($connstring, $vocabularyID, $userid)
+{
+
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		$statement = $pdo->prepare("SELECT * FROM vocabulary INNER JOIN mistake" . $_SESSION["userid"] . " ON vocabulary.vocabularyID = mistake" . $_SESSION["userid"] . ".vocabularyID WHERE vocabulary.vocabularyID = '" . $vocabularyID . "' AND mistake" . $_SESSION["userid"] . ".userid = '" . $userid . "' AND mistake > 0");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
+			$_SESSION["vocabularyID"] = $row['vocabularyID'];
+			$_SESSION["language1"] = $row['language1'];
+			$_SESSION["language2"] = $row['language2'];
+			$_SESSION["mistake"] = null;
+		}
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+		
+	}
+	$pdo = null;
+	
+}
+
+function getmistake($connstring, $vocabularyID, $userid)
+{
+
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		$statement = $pdo->prepare("SELECT * FROM mistake" . $_SESSION["userid"] . " WHERE vocabularyID = '" . $vocabularyID . "' AND userid = '" . $userid . "'");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
+			$_SESSION["mistake"] = $row['mistake'];
+			
+		}
+		
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+		
+	}
+	$pdo = null;
+	
 }

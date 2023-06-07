@@ -2,6 +2,7 @@
 session_start();
 include '../header.php';
 include '../session.php';
+include '../function.php';
 $vocabularyID = $_GET['vocabularyID'];
 $e = $_GET['e']; //end
 $_SESSION["e"] = $_GET['e'];
@@ -19,25 +20,12 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($f == "f1") {
-        $sql = "SELECT * FROM vocabulary INNER JOIN mistake" . $_SESSION["userid"] . " ON vocabulary.vocabularyID = mistake" . $_SESSION["userid"] . ".vocabularyID WHERE vocabulary.vocabularyID = '" . $vocabularyID . "' AND mistake" . $_SESSION["userid"] . ".userid = '" . $userid . "' AND mistake > 0";
-        foreach ($pdo->query($sql) as $row) {
-            $_SESSION["vocabularyID"] = $row['vocabularyID'];
-            $_SESSION["language1"] = $row['language1'];
-            $_SESSION["language2"] = $row['language2'];
-            $_SESSION["mistake"] = $row['mistake'];
-        }
+        getvocabularyf1($connstring, $vocabularyID, $userid);
+        
     } else {
-        $sql = "SELECT * FROM vocabulary WHERE vocabularyID = '" . $vocabularyID . "'";
-        foreach ($pdo->query($sql) as $row) {
-            $_SESSION["vocabularyID"] = $row['vocabularyID'];
-            $_SESSION["language1"] = $row['language1'];
-            $_SESSION["language2"] = $row['language2'];
-            $_SESSION["mistake"] = null;
-        }
-        $sql2 = "SELECT * FROM mistake" . $_SESSION["userid"] . " WHERE vocabularyID = '" . $vocabularyID . "' AND userid = '" . $userid . "'";
-        foreach ($pdo->query($sql2) as $row) {
-            $_SESSION["mistake"] = $row['mistake'];
-        }
+        $error = getvocabulary($connstring, $vocabularyID);
+        getmistake($connstring, $vocabularyID, $userid);
+        echo $error;
     }
     //exit when finish
     if ($e < $vocabularyID) {
