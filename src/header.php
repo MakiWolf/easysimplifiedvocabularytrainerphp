@@ -9,7 +9,7 @@
             $cookie = $_COOKIE['acceptcookies'];
         }
         //title
-        echo "project";
+        echo "easysimplified";
 
         $TagsURL = '';
 
@@ -27,12 +27,21 @@
             echo " - edit profile";
         }
 
-        if (strpos($CurURL, "/profile/history")) {
-            echo " - history";
+        if (strpos($CurURL, "/vocabulary/studyprogress")) {
+            echo " - studyprogress";
+        }
+
+        if (strpos($CurURL, "/vocabulary/vocabularylist")) {
+            echo " - vocabularylist";
+        }
+
+        if (strpos($CurURL, "/vocabulary/newvocabulary")) {
+            echo " - new vocabulary";
         }
 
         //set $folder as root directory
         $folder = "/test/easysimplifiedvocabularytrainerphp/src";
+        $version = "v0.1";
 
         ?>
     </title>
@@ -52,7 +61,7 @@
     $CurURL = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $TagsURL;
 
     if (!(strpos($CurURL, "/index"))) {
-        echo "<a href='" . $folder . "/internal.php' class='logo'>easysimplified - vocabularytrainer</a>";
+        echo "<a href='" . $folder . "/internal.php' class='logo'>easysimplified - vocabularytrainer - " . $version . "</a>";
     }
 
     echo "<div class='header-right'>";

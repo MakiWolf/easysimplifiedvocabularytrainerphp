@@ -1,5 +1,4 @@
 <?php
-$servername = "localhost";
 $username = $_SESSION["usern"];
 $password = $_SESSION["passwd"];
 $connstring = "mysql:host=localhost;dbname=Dbvocabulary;charset=utf8";
