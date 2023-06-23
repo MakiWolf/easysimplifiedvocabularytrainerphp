@@ -39,7 +39,7 @@ try {
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
-        echo "<h3>Anmeldedaten</h3>";
+        echo "<h3>login data</h3>";
         echo "<p>username: " . $Username . "</p>";
         echo "<p>password: " . $pw . "</p>";
 
