@@ -1,57 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$lang = "en";
+echo "<!DOCTYPE html>";
+echo "<html lang='" . $lang . "'>";
 
-<head>
-    <title>
-        <?php
-        $cookie = "";
-        if (isset($_COOKIE['acceptcookies'])) {
-            $cookie = $_COOKIE['acceptcookies'];
-        }
-        //title
-        echo "easysimplified";
+echo "<head>";
+echo "<title>";
 
-        $TagsURL = '';
+$cookie = "";
+if (isset($_COOKIE['acceptcookies'])) {
+    $cookie = $_COOKIE['acceptcookies'];
+}
+//title
+echo "easysimplified";
 
-        $CurURL = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $TagsURL;
+$TagsURL = '';
 
-        if (strpos($CurURL, "/login")) {
-            echo " - Login";
-        }
+$CurURL = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $TagsURL;
 
-        if (strpos($CurURL, "/logout")) {
-            echo " - Logout";
-        }
+if (strpos($CurURL, "/login")) {
+    echo " - Login";
+}
 
-        if (strpos($CurURL, "/profile/profile")) {
-            echo " - edit profile";
-        }
+if (strpos($CurURL, "/logout")) {
+    echo " - Logout";
+}
 
-        if (strpos($CurURL, "/vocabulary/studyprogress")) {
-            echo " - studyprogress";
-        }
+if (strpos($CurURL, "/profile/profile")) {
+    echo " - edit profile";
+}
 
-        if (strpos($CurURL, "/vocabulary/vocabularylist")) {
-            echo " - vocabularylist";
-        }
+if (strpos($CurURL, "/vocabulary/studyprogress")) {
+    echo " - studyprogress";
+}
 
-        if (strpos($CurURL, "/vocabulary/newvocabulary")) {
-            echo " - new vocabulary";
-        }
+if (strpos($CurURL, "/vocabulary/vocabularylist")) {
+    echo " - vocabularylist";
+}
 
-        //set $folder as root directory
-        $folder = "/test/easysimplifiedvocabularytrainerphp/src";
-        $version = "v0.1";
+if (strpos($CurURL, "/vocabulary/newvocabulary")) {
+    echo " - new vocabulary";
+}
 
-        ?>
-    </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php
+//set $folder as root directory
+$folder = "/test/easysimplifiedvocabularytrainerphp/src";
+$version = "v0.1";
 
-    echo "<link rel='stylesheet' href='" . $folder . "/css/stylesheet.css'>";
+?>
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
 
-    ?>
+echo "<link rel='stylesheet' href='" . $folder . "/css/stylesheet.css'>";
+
+?>
 </head>
 
 <body>
