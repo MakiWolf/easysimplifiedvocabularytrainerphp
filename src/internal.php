@@ -18,4 +18,8 @@ echo "<input type='radio' name='l' value='l2' required>language1-language2";
 echo "<input type='radio' name='f' value='f1' required>mistakes";
 echo "<input type='radio' name='f' value='f2' required>all";
 echo "<input type='submit'></p></center>";
+if ($username == "projectadmin") {
+    echo "<center><h3>administration</h3></center>";
+    echo "<center><a href ='user/newuser.php'>new user</a></center>";
+}
 include 'footer.php';
