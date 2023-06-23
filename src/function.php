@@ -119,6 +119,40 @@ function studyprogress($connstring, $s, $e)
 	$pdo = null;
 }
 
+function userprofile($connstring, $userid)
+{
+
+	try {
+		echo "<table border><tr><td>ID</td><td>username</td></tr>";
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$statement = $pdo->prepare("SELECT * FROM user WHERE userID=" . $_SESSION["userid"] . "");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
+			echo "<tr><td>" . $row['userID'] . "</td><td>" . $row['username'] . "</td></tr>";
+		}
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+	}
+	$pdo = null;
+}
+
+function alluserprofiles($connstring)
+{
+
+	try {
+		echo "<table border><tr><td>username</td></tr>";
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$statement = $pdo->prepare("SELECT * FROM user");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
+			echo "<tr><td>" . $row['username'] . "</td></tr>";
+		}
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+	}
+	$pdo = null;
+}
+
 function update($connstring, $mistake, $vocabularyID, $userid)
 {
 	try {
