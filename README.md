@@ -15,7 +15,6 @@ If the files are not located in project directory on server, you have to change 
 ## Roadmap
 support multiple languages in user interface<br>
 clean up code and move code to classes<br>
-support multiple user accounts<br>
 currently only utf8<br>
 
 ## Table structure - might be changed in future!
