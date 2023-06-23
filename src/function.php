@@ -67,6 +67,25 @@ function userid($connstring, $username)
 	$pdo = null;
 }
 
+function checkifuserexist($connstring, $username)
+{
+	$yes = "";
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		$statement = $pdo->prepare("SELECT * FROM user WHERE username = '" . $username . "'");
+		$statement->execute();
+		while ($row = $statement->fetch()) {
+			return $yes = $row['userID'];
+		}
+	} catch (PDOException $e) {
+		echo "Error: " . $e->getMessage();
+		return $yes;
+	}
+	$pdo = null;
+}
+
 function editvocabularysave($connstring, $id, $language1, $language2)
 {
 	try {

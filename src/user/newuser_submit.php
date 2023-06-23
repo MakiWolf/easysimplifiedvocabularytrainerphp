@@ -15,8 +15,9 @@ try {
     $tablemistake = "mistake" . $userid;
 
     echo "<center>";
+    $userexist = checkifuserexist($connstring, $Username);
 
-    if (empty(!$Username) && empty(!$userid)) {
+    if (empty(!$Username) && empty(!$userid) && empty($userexist)) {
 
         $sql = "CREATE USER '" . $Username . "'@'localhost' IDENTIFIED BY '" . $pw . "';";
         $stmt = $conn->prepare($sql);
@@ -50,7 +51,7 @@ try {
         $statement->execute(array($userid, $Username));
         echo "New user created successfully";
     } else {
-        echo "username or userid not filled out";
+        echo "username or userid not filled out or user or userid exist already!";
     }
 } catch (PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
