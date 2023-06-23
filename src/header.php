@@ -18,15 +18,19 @@ $TagsURL = '';
 $CurURL = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $TagsURL;
 
 if (strpos($CurURL, "/login")) {
-    echo " - Login";
+    echo " - login";
 }
 
 if (strpos($CurURL, "/logout")) {
-    echo " - Logout";
+    echo " - logout";
 }
 
-if (strpos($CurURL, "/profile/profile")) {
-    echo " - edit profile";
+if (strpos($CurURL, "/user/user")) {
+    echo " - user";
+}
+
+if (strpos($CurURL, "/user/newuser")) {
+    echo " - newuser";
 }
 
 if (strpos($CurURL, "/vocabulary/studyprogress")) {
@@ -39,6 +43,14 @@ if (strpos($CurURL, "/vocabulary/vocabularylist")) {
 
 if (strpos($CurURL, "/vocabulary/newvocabulary")) {
     echo " - new vocabulary";
+}
+
+if (strpos($CurURL, "/vocabulary/vocabularytest")) {
+    echo " - vocabularytest";
+}
+
+if (strpos($CurURL, "/vocabulary/vocabularytest_submit")) {
+    echo " - vocabularytest - check";
 }
 
 //set $folder as root directory
