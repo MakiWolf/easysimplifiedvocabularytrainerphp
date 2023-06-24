@@ -77,11 +77,32 @@ function checkifuserexist($connstring, $username)
 		$statement = $pdo->prepare("SELECT * FROM user WHERE username = '" . $username . "'");
 		$statement->execute();
 		while ($row = $statement->fetch()) {
+			echo $row['userID'];
 			return $yes = $row['userID'];
 		}
 	} catch (PDOException $e) {
 		echo "Error: " . $e->getMessage();
 		return $yes;
+	}
+	$pdo = null;
+}
+
+function newuser($connstring, $username)
+{
+
+	try {
+		$pdo = new PDO($connstring, $_SESSION["usern"], $_SESSION["passwd"]);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		if (empty(!$username)) {
+			$statement = $pdo->prepare("INSERT INTO user (username) VALUES (?)");
+			$statement->execute(array($username));
+			echo "New user created successfully";
+		} else {
+			echo "not filled out";
+		}
+	} catch (PDOException $e) {
+		echo "<br>" . $e->getMessage();
 	}
 	$pdo = null;
 }

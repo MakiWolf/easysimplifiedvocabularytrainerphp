@@ -11,13 +11,17 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $Username = $_POST["Username"];
-    $userid = $_POST["ID"];
-    $tablemistake = "mistake" . $userid;
+   
 
     echo "<center>";
     $userexist = checkifuserexist($connstring, $Username);
+   
 
-    if (empty(!$Username) && empty(!$userid) && empty($userexist)) {
+    if (empty(!$Username) && $userexist == "") {
+
+        newuser($connstring, $Username);
+        $userid = checkifuserexist($connstring, $Username);
+        $tablemistake = "mistake" . $userid;
 
         $sql = "CREATE USER '" . $Username . "'@'localhost' IDENTIFIED BY '" . $pw . "';";
         $stmt = $conn->prepare($sql);
@@ -46,10 +50,6 @@ try {
         $sql = "FLUSH PRIVILEGES;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-
-        $statement = $conn->prepare("INSERT INTO user (userid, username) VALUES (?, ?)");
-        $statement->execute(array($userid, $Username));
-        echo "New user created successfully";
     } else {
         echo "username or userid not filled out or user or userid exist already!";
     }
